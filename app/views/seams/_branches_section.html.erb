@@ -1,0 +1,16 @@
+<div id="seam-stitch-branch-container">
+  <div id="seam-stitch-branch-controls" class="seam-stitch-branch-controls">
+    <button type="button" id="create-branch-button">Create Branch</button>
+  </div>
+  <div id="seam-stitch-branch-list-container" class="seam-stitch-branch-list-container">
+    <ul id="seam-stitch-branch-list" class="horizontal-list-view">
+    <% for branch in @seam_stitch.branches %>
+      <li>
+        <div class="branch-list-item">
+          <%= branch.stitch.passage %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

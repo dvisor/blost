@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  branch_seam_stitch_id: 1
+  seam_stitch_id: 1
+
+two:
+  branch_seam_stitch_id: 1
+  seam_stitch_id: 1

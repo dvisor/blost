@@ -1,0 +1,29 @@
+<h1>Listing stitch_commits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stitch</th>
+      <th>Git object</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stitch_commits.each do |stitch_commit| %>
+      <tr>
+        <td><%= stitch_commit.stitch_id %></td>
+        <td><%= stitch_commit.git_object_id %></td>
+        <td><%= link_to 'Show', stitch_commit %></td>
+        <td><%= link_to 'Edit', edit_stitch_commit_path(stitch_commit) %></td>
+        <td><%= link_to 'Destroy', stitch_commit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stitch commit', new_stitch_commit_path %>

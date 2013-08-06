@@ -1,0 +1,16 @@
+<div id="seam-stitch-page-container">
+  <div id="seam-stitch-page-controls" class="seam-stitch-page-controls">
+    <button type="button" id="create-page-button">Create Page</button>
+  </div>
+  <div id="seam-stitch-page-list-container" class="seam-stitch-page-list-container">
+    <ul id="seam-stitch-page-list" class="horizontal-list-view">
+    <% for page in @seam_stitch.pages %>
+      <li>
+        <div class="page-list-item">
+          <%= page.stitch.passage %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

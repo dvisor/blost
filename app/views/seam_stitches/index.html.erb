@@ -1,0 +1,33 @@
+<h1>Listing seam_stitches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seam</th>
+      <th>Stitch</th>
+      <th>Prev seam stitch</th>
+      <th>Next seam stitch</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seam_stitches.each do |seam_stitch| %>
+      <tr>
+        <td><%= seam_stitch.seam_id %></td>
+        <td><%= seam_stitch.stitch_id %></td>
+        <td><%= seam_stitch.prev_seam_stitch_id %></td>
+        <td><%= seam_stitch.next_seam_stitch_id %></td>
+        <td><%= link_to 'Show', seam_stitch %></td>
+        <td><%= link_to 'Edit', edit_seam_stitch_path(seam_stitch) %></td>
+        <td><%= link_to 'Destroy', seam_stitch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seam stitch', new_seam_stitch_path %>

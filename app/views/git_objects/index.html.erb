@@ -1,0 +1,29 @@
+<h1>Listing git_objects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sha1</th>
+      <th>Content</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @git_objects.each do |git_object| %>
+      <tr>
+        <td><%= git_object.sha1 %></td>
+        <td><%= git_object.content %></td>
+        <td><%= link_to 'Show', git_object %></td>
+        <td><%= link_to 'Edit', edit_git_object_path(git_object) %></td>
+        <td><%= link_to 'Destroy', git_object, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Git object', new_git_object_path %>

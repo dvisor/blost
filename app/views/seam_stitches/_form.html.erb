@@ -1,0 +1,33 @@
+<%= form_for(@seam_stitch) do |f| %>
+  <% if @seam_stitch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seam_stitch.errors.count, "error") %> prohibited this seam_stitch from being saved:</h2>
+
+      <ul>
+      <% @seam_stitch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :seam_id %><br>
+    <%= f.number_field :seam_id %>
+  </div>
+  <div class="field">
+    <%= f.label :stitch_id %><br>
+    <%= f.number_field :stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :prev_seam_stitch_id %><br>
+    <%= f.number_field :prev_seam_stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :next_seam_stitch_id %><br>
+    <%= f.number_field :next_seam_stitch_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blost</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+  <%# stylesheet_link_tag "css/bootstrap" %>
+  <%# stylesheet_link_tag "css/bootstrap-responsive" %>
+  <%# javascript_include_tag "js/bootstrap" %>
+
+
+</head>
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar " data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to root_url, class: "brand" do %>
+          <%#= image_tag "http://dvi.sr/images/dvisor_logo-wb-mini-trans.png", class: "main-nav-image" %>
+        <% end %>
+
+        <div class="nav-collapse">
+
+          <ul class="nav">
+            <li><%= link_to "Seams", seams_url %></li>
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <%= yield %>
+
+</body>
+</html>

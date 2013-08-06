@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Branch seam stitch:</strong>
+  <%= @seam_stitch_branch.branch_seam_stitch_id %>
+</p>
+
+<p>
+  <strong>Seam stitch:</strong>
+  <%= @seam_stitch_branch.seam_stitch_id %>
+</p>
+
+<%= link_to 'Edit', edit_seam_stitch_branch_path(@seam_stitch_branch) %> |
+<%= link_to 'Back', seam_stitch_branches_path %>

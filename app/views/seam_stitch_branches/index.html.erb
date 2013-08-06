@@ -1,0 +1,29 @@
+<h1>Listing seam_stitch_branches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Branch seam stitch</th>
+      <th>Seam stitch</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seam_stitch_branches.each do |seam_stitch_branch| %>
+      <tr>
+        <td><%= seam_stitch_branch.branch_seam_stitch_id %></td>
+        <td><%= seam_stitch_branch.seam_stitch_id %></td>
+        <td><%= link_to 'Show', seam_stitch_branch %></td>
+        <td><%= link_to 'Edit', edit_seam_stitch_branch_path(seam_stitch_branch) %></td>
+        <td><%= link_to 'Destroy', seam_stitch_branch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seam stitch branch', new_seam_stitch_branch_path %>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sha1: MyString
+  content: MyText
+
+two:
+  sha1: MyString
+  content: MyText

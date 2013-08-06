@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stitch:</strong>
+  <%= @stitch_commit.stitch_id %>
+</p>
+
+<p>
+  <strong>Git object:</strong>
+  <%= @stitch_commit.git_object_id %>
+</p>
+
+<%= link_to 'Edit', edit_stitch_commit_path(@stitch_commit) %> |
+<%= link_to 'Back', stitch_commits_path %>

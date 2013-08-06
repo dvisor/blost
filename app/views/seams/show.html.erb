@@ -1,0 +1,69 @@
+<%= stylesheet_link_tag params[:controller] %>
+<div id="seam-data" data-id="<%= @seam.id %>"></div>
+<div id="seam-stitch-data" data-id="<%= @seam_stitch.id %>"></div>
+
+
+<div class="container main-seam-container">
+
+  <p id="notice"><%= notice %></p>
+
+  <%= link_to 'Back', seams_path %>
+
+
+  <div class="row-fluid">
+    <div class="span3 left-panel-region">
+      <div id="left-panel-container" class="left-panel-container">
+        Semantics Panel
+      </div>
+    </div>
+    <div class="span9 center-panel-container">
+      <!-- SEAM STITCH TIER 1 -->
+      <div id="seam-stitch-tier1" class="row-fluid seam-stitch-tier1">
+        <div class="header seam-title">Chrono the Savior
+        </div>
+        <div class="header seam-author">Mainline story seam authored by: Square
+        </div>
+      </div>
+
+      <div class="seam-stitch-container">
+        <!-- SEAM STITCH TIER 2 -->
+        <div id="seam-stitch-tier2" class="row-fluid seam-stitch-tier2">
+          <div class="span12 seam-stitch-header">
+            Ancestory stitch summary: Magus reveals his connection to Lavos
+          </div>
+        </div>
+        <!-- SEAM STITCH TIER 3 -->
+        <div id="seam-stitch-tier3" class="row-fluid seam-stitch-tier3">
+          <div class="span1 seam-stitch-left-panel">
+          </div>
+
+          <div id="seam-stitch-text" class="span10 seam-stitch-text">
+            <%= @seam_stitch.stitch.passage %>
+          </div>
+
+          <div class="span1 seam-stitch-right-panel centering-block">
+            <div class="centering-block-centered">
+              <div><button id="prev-seam-stitch">&lt;</button></div>
+              <div><button id="next-seam-stitch">&gt;</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="pages-button">Pages</button>
+        <button type="button" id="branches-button">Branches (<%= @seam_stitch.branches.count %>)</button>
+      </div>
+
+      <div id="seam-stitch-tier4" class="seam-stitch-tier4">
+        <%= render "pages_section", seam_stitch: @seam_stitch %>
+        <%= render "branches_section", seam_stitch: @seam_stitch %>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<%= javascript_include_tag params[:controller] %>

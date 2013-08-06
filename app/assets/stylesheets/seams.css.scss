@@ -1,0 +1,240 @@
+// Place all the styles related to the Seams controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.main-seam-container {
+  background-color: rgba(192, 192, 192, .8);
+
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, .11);
+
+  padding: 32px;
+}
+
+.left-panel-region {
+
+}
+
+.left-panel-container {
+  height: 460px;
+  border-radius: 4px;
+  background-color: rgba(20, 20, 20, .1);
+  border: 2px solid rgba(0, 0 ,0 , .1);
+}
+
+.center-panel-region {
+}
+
+.center-panel-container {
+  // border-radius: 4px;
+  // background-color: rgba(128, 128, 128, .8);
+  // border: 2px solid rgba(0, 0 ,0 , .1);
+}
+
+.seam-title {
+  text-align: center;
+  font-family: calibri,helvetica,ubuntu,verdana;
+  font-size: 3em;
+  text-shadow: 3px 2px 5px gray;
+  line-height: 1em;
+
+}
+.seam-author {
+  text-align: center;
+}
+
+.seam-stitch-container {
+  // background-color: rgba(192, 192, 192, .8);
+  // padding: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(0,0,0,1);
+  background-color: rgba(255, 255, 255, .8);
+  height: 384px;
+  margin: 16px 0px;
+}
+
+.seam-stitch-tier2 {
+  overflow: hidden;
+  height: 64px;
+}
+
+.seam-stitch-tier3 {
+  overflow: hidden;
+  height: 320px;
+}
+
+.seam-stitch-tier4 {
+  border: 2px solid rgba(0,0,0,1);
+  height: 256px;
+  margin: 16px 0px;
+}
+
+.seam-stitch-left-panel {
+  text-align: center;
+  height: 100%;
+}
+
+.seam-stitch-right-panel {
+  text-align: center;
+  height: 100%;
+}
+
+.seam-stitch-header {
+  text-align: center;
+  font-family: calibri,helvetica,ubuntu,verdana;
+  font-size: 2em;
+  text-shadow: 3px 2px 5px gray;
+  line-height: 1em;
+}
+
+.seam-stitch-text {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  // margin: 3px;
+  background-color: #CCDDEE;
+  // border: 1px solid black;
+  height: 100%;
+}
+
+.seam-stitch-branch-container {
+
+}
+
+.seam-stitch-branch-list-container {
+  height: 200px;
+}
+
+.branch-list-item {
+
+  width: 200px;
+  height: 100%;
+  // float: left;
+}
+
+// http://stackoverflow.com/questions/10088706/twitter-bootstrap-how-to-center-elements-horizontally-or-vertically
+// http://css-tricks.com/centering-in-the-unknown/
+.centering-block {
+  text-align: center;
+  font-size: 0;
+}
+
+.centering-block:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  // margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+.centering-block-centered {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.horizontal-list-view {
+    height  : 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: block;
+  white-space: nowrap;
+
+    //   margin: 0; 
+    // padding: 0; 
+    // list-style-type: none; 
+    // list-style-image: none;
+}
+.horizontal-list-view li {
+  height: 100%;
+  vertical-align: top;
+  display: inline-block;
+    // float: left;
+  margin: 0;
+}
+
+.horizontal-list-view li div {
+
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  // clear: both;
+  white-space: normal;
+
+
+  color:#eee;
+  //       margin: 0 4px;
+  // padding: 10px 20px;
+    margin: 0px 16px;
+  padding: 0px 16px;
+  background:#3c66ad;
+  font-size:16px;
+  font-weight: bold;
+  
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+
+}
+
+
+
+
+
+
+
+.seam-stitch-controls {
+  margin: 3px;
+  float: right;
+}
+
+
+.seam-stitch-branch-controls {
+  margin: 3px;
+  // float: right;
+}
+
+.seam-stitch-branch-text {
+  resize: none;
+  width: 95%;
+  height: 200px;
+  
+}
+
+.seam-stitch-add-text {
+  resize: none;
+  width: 300px;
+  height: 200px;
+}
+
+.seam-stitch-left-container {
+  margin: 3px;
+  border: 1px solid black;
+}
+
+.seam-stitch-right-container {
+}
+
+.seam-flow-container {
+  width: 800px;
+  height: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vertical-list-view {
+  overflow-y: scroll;
+}
+
+
+
+
+table {
+  table-layout: fixed;
+  width: 100%
+}
+
+.seam-flow-column {
+  width: 2%;
+  vertical-align: top;
+}

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sha1:</strong>
+  <%= @git_object.sha1 %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @git_object.content %>
+</p>
+
+<%= link_to 'Edit', edit_git_object_path(@git_object) %> |
+<%= link_to 'Back', git_objects_path %>

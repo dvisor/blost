@@ -1,0 +1,2 @@
+module SeamsHelper
+end

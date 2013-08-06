@@ -1,0 +1,25 @@
+<%= form_for(@seam_stitch_branch) do |f| %>
+  <% if @seam_stitch_branch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seam_stitch_branch.errors.count, "error") %> prohibited this seam_stitch_branch from being saved:</h2>
+
+      <ul>
+      <% @seam_stitch_branch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :branch_seam_stitch_id %><br>
+    <%= f.number_field :branch_seam_stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :seam_stitch_id %><br>
+    <%= f.number_field :seam_stitch_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

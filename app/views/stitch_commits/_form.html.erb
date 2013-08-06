@@ -1,0 +1,25 @@
+<%= form_for(@stitch_commit) do |f| %>
+  <% if @stitch_commit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stitch_commit.errors.count, "error") %> prohibited this stitch_commit from being saved:</h2>
+
+      <ul>
+      <% @stitch_commit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stitch_id %><br>
+    <%= f.number_field :stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :git_object_id %><br>
+    <%= f.number_field :git_object_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

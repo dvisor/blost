@@ -1,0 +1,33 @@
+<%= form_for(@seam) do |f| %>
+  <% if @seam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seam.errors.count, "error") %> prohibited this seam from being saved:</h2>
+
+      <ul>
+      <% @seam.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :start_seam_stitch_id %><br>
+    <%= f.number_field :start_seam_stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :end_seam_stitch_id %><br>
+    <%= f.number_field :end_seam_stitch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :author_id %><br>
+    <%= f.number_field :author_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
