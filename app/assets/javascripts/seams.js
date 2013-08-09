@@ -31,10 +31,13 @@
   };
 
   seam.updateSeamStitchDisplay = function() {
-    $("#seam-stitch-text").html(dvisor.blost.data.seamStitch.passage);
+    var seamStitch = dvisor.blost.data.seamStitch;
     var branchList = $("#seam-stitch-branch-list");
+    
+    $("#seam-stitch-text").html(seamStitch.passage);
     branchList.empty();
-    $.each(dvisor.blost.data.seamStitch.branches, function(index, seamStitch) {
+    $("#branches-button").html("Branches (" + seamStitch.branches.total + ")");
+    $.each(seamStitch.branches.data, function(index, seamStitch) {
         var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
         branchList.append(branchItem);
       });

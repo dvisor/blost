@@ -17,12 +17,15 @@ class SeamStitchesController < ApplicationController
       {
         id: seam_stitch.id,
         passage: seam_stitch.stitch.passage,
-        branches: seam_stitch.branches.map do |branch|
-          {
-            id: branch.id,
-            passage: branch.stitch.passage
-          }
-        end
+        branches: {
+          total: seam_stitch.branches.count,
+          data: seam_stitch.branches.map do |branch|
+            {
+              id: branch.id,
+              passage: branch.stitch.passage
+            }
+          end
+        }
       }
     end
 
