@@ -1,0 +1,29 @@
+<h1>Listing offered_pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page commit</th>
+      <th>Seam stitch</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @offered_pages.each do |offered_page| %>
+      <tr>
+        <td><%= offered_page.page_commit_id %></td>
+        <td><%= offered_page.seam_stitch_id %></td>
+        <td><%= link_to 'Show', offered_page %></td>
+        <td><%= link_to 'Edit', edit_offered_page_path(offered_page) %></td>
+        <td><%= link_to 'Destroy', offered_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Offered page', new_offered_page_path %>

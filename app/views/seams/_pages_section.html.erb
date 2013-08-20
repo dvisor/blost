@@ -1,16 +1,38 @@
 <div id="seam-stitch-page-container">
+<!-- 
   <div id="seam-stitch-page-controls" class="seam-stitch-page-controls">
-    <button type="button" id="create-page-button">Create Page</button>
+    <button type="button" id="create-page-button">Create page</button>
   </div>
-  <div id="seam-stitch-page-list-container" class="seam-stitch-page-list-container">
-    <ul id="seam-stitch-page-list" class="horizontal-list-view">
-    <% for page in @seam_stitch.pages %>
-      <li>
-        <div class="page-list-item">
-          <%= page.stitch.passage %>
-        </div>
-      </li>
-    <% end %>
-    </ul>
+ -->
+  <ul class="nav nav-tabs">
+    <li>
+      <a href="#seam-stitch-page-list-container" data-toggle="tab">All</a>
+    </li>
+    <li>
+      <a href="#seam-stitch-new-page-container" data-toggle="tab">New</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div  class="tab-pane seam-stitch-page-list-container active" id="seam-stitch-page-list-container">
+      <ul id="seam-stitch-page-list" class="horizontal-list-view">
+      <% for page in @seam_stitch.pages %>
+        <li>
+          <div class="page-list-item">
+            <%= page.passage %>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <div class="tab-pane" id="seam-stitch-new-page-container">
+      <textarea id="new-page-text" class="new-page-text"></textarea>
+      <button id="offer-new-page" type="button" class="btn btn-default">Offer</button>
+    </div>
   </div>
+
+
+
+
+
 </div>

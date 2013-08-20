@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Page commit:</strong>
+  <%= @offered_page.page_commit_id %>
+</p>
+
+<p>
+  <strong>Seam stitch:</strong>
+  <%= @offered_page.seam_stitch_id %>
+</p>
+
+<%= link_to 'Edit', edit_offered_page_path(@offered_page) %> |
+<%= link_to 'Back', offered_pages_path %>

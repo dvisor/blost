@@ -1,16 +1,37 @@
 <div id="seam-stitch-branch-container">
+<!-- 
   <div id="seam-stitch-branch-controls" class="seam-stitch-branch-controls">
     <button type="button" id="create-branch-button">Create Branch</button>
   </div>
-  <div id="seam-stitch-branch-list-container" class="seam-stitch-branch-list-container">
-    <ul id="seam-stitch-branch-list" class="horizontal-list-view">
-    <% for branch in @seam_stitch.branches %>
-      <li>
-        <div class="branch-list-item">
-          <%= branch.stitch.passage %>
-        </div>
-      </li>
-    <% end %>
-    </ul>
+ -->
+  <ul class="nav nav-tabs">
+    <li>
+      <a href="#seam-stitch-branch-list-container" data-toggle="tab">All</a>
+    </li>
+    <li>
+      <a href="#seam-stitch-new-branch-container" data-toggle="tab">New</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div  class="tab-pane seam-stitch-branch-list-container active" id="seam-stitch-branch-list-container">
+      <ul id="seam-stitch-branch-list" class="horizontal-list-view">
+      <% for branch in @seam_stitch.branches %>
+        <li>
+          <div class="branch-list-item">
+            <%= branch.stitch.passage %>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <div class="tab-pane" id="seam-stitch-new-branch-container">
+      <textarea class="new-branch-text"></textarea>
+    </div>
   </div>
+
+
+
+
+
 </div>

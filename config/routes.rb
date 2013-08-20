@@ -1,5 +1,7 @@
 Blost::Application.routes.draw do
 
+  resources :offered_pages
+
   root to: "landings#index"
 
   resources :seams
@@ -12,6 +14,8 @@ Blost::Application.routes.draw do
   resources :seam_stitch_branches
 
   resources :seam_stitches
+
+  post "seam_stitches/:id/offer_page", to: "seam_stitches#offer_page"
 
   resources :stitches
 

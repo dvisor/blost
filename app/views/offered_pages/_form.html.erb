@@ -1,0 +1,25 @@
+<%= form_for(@offered_page) do |f| %>
+  <% if @offered_page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offered_page.errors.count, "error") %> prohibited this offered_page from being saved:</h2>
+
+      <ul>
+      <% @offered_page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :page_commit_id %><br>
+    <%= f.number_field :page_commit_id %>
+  </div>
+  <div class="field">
+    <%= f.label :seam_stitch_id %><br>
+    <%= f.number_field :seam_stitch_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

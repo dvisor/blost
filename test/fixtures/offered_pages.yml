@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  page_commit_id: 1
+  seam_stitch_id: 1
+
+two:
+  page_commit_id: 1
+  seam_stitch_id: 1

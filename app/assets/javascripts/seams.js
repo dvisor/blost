@@ -14,6 +14,16 @@
     }
   };
 
+  // -- Add stitch into seam.
+  seam.offerPage = function(data) {
+
+  };
+
+
+
+
+
+
   // -- Add branch from seam.
   seam.addBranch = function(data) {
     // $("#new-seam-stitch-text").val('');
@@ -26,20 +36,32 @@
   seam.updateSeamStitchData = function(data) {
     console.log("updateSeamStitchData")
     if( data.length ) {
+      dvisor.util.defineDeep(dvisor.blost.data, ["seamStitches"], {});
       dvisor.blost.data.seamStitch = data[0];
+      $.each(data, function(index, seamStitch) {
+        dvisor.blost.data.seamStitches[seamStitch.id] = seamStitch;
+      });
     }
   };
 
   seam.updateSeamStitchDisplay = function() {
     var seamStitch = dvisor.blost.data.seamStitch;
     var branchList = $("#seam-stitch-branch-list");
-    
+
     $("#seam-stitch-text").html(seamStitch.passage);
     branchList.empty();
     $("#branches-button").html("Branches (" + seamStitch.branches.total + ")");
     $.each(seamStitch.branches.data, function(index, seamStitch) {
         var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
         branchList.append(branchItem);
+      });
+  
+    var pageList = $("#seam-stitch-page-list");
+    pageList.empty();
+    $("#pages-button").html("Pages (" + seamStitch.pages.total + ")");
+    $.each(seamStitch.pages.data, function(index, seamStitch) {
+        var pageItem = $("<li>").append($("<div>").addClass("page-list-item").html(seamStitch.passage));
+        pageList.append(pageItem);
       });
   };
 
@@ -75,6 +97,27 @@
       data: data,
       success: function(data) {
         dvisor.blost.seam.addStitch(data);
+      }
+    });
+  };
+
+  ajax.offerPage = function(data) {
+    data = dvisor.util.resolve(data, {});
+
+    var defaultData = {
+      seam_stitch_id : dvisor.blost.data.seamStitch.id
+    };
+
+    // -- Build request data.
+    data = $.extend({}, defaultData, data);
+
+    // -- Send through AJAX.
+    ajax.sendJSON({
+      url: '/seam_stitches/' + data.seam_stitch_id + '/offer_page/',
+      data: data,
+      success: function(data) {
+        dvisor.blost.seam.updateSeamStitchData(data);
+        dvisor.blost.seam.updateSeamStitchDisplay();
       }
     });
   };
@@ -128,6 +171,18 @@
 $(function() {
   dvisor.blost.data.seam = $("#seam-data").data();
   dvisor.blost.data.seamStitch = $("#seam-stitch-data").data();
+
+  var initPages = function() {
+    $("#offer-new-page").click(function(event) {
+      dvisor.blost.seam.ajax.offerPage(
+        {
+          passage: $("#new-page-text").val()
+        });
+    });
+  };
+
+  initPages();
+
 
 
   $("#seam-stitch-page-container").hide();
@@ -204,16 +259,21 @@ $(function() {
       });
     });
 
+    // -- Set click for next seam stitch button to retrieve via ajax.
     $("#next-seam-stitch").click(function(event) {
       dvisor.blost.seam.ajax.getSeamStitch({
         next : 2
       })
     });
 
+    // -- Set click for prev seam stitch button to retrieve via ajax.
     $("#prev-seam-stitch").click(function(event) {
       dvisor.blost.seam.ajax.getSeamStitch({
         next : -2
       })
     });
+
+
+
 
 });

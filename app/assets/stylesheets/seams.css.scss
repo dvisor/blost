@@ -65,7 +65,7 @@
 
 .seam-stitch-tier4 {
   border: 2px solid rgba(0,0,0,1);
-  height: 256px;
+  // height: 256px;
   margin: 16px 0px;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .horizontal-list-view {
-    height  : 100%;
+  height  : 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   display: block;
@@ -176,7 +176,36 @@
 
 }
 
+.new-branch-text {
+  resize: none;
+  margin: 16px;
+  height: 200px;
+  
+}
 
+.seam-stitch-page-list-container {
+  height: 200px;
+}
+
+.page-list-item {
+
+  width: 200px;
+  height: 100%;
+  // float: left;
+}
+
+.new-page-text {
+  resize: none;
+  // width: 95%;
+  margin: 16px;
+  height: 200px;
+  
+}
+
+
+.hidden {
+  display: none;
+}
 
 
 

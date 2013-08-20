@@ -7,6 +7,10 @@ class StitchCommit < ActiveRecord::Base
 
   before_validation :set_git_object
 
+  def author
+    self.stitch.author rescue nil
+  end
+
   def passage
     @passage || git_object.content rescue nil
   end

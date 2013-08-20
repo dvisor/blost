@@ -1,5 +1,5 @@
 class SeamStitchesController < ApplicationController
-  before_action :set_seam_stitch, only: [:show, :edit, :update, :destroy]
+  before_action :set_seam_stitch, only: [:show, :edit, :update, :destroy, :offer_page]
 
   # GET /seam_stitches
   # GET /seam_stitches.json
@@ -13,20 +13,9 @@ class SeamStitchesController < ApplicationController
     @seam_stitch = SeamStitch.find_by_id(params[:id])
 
     retrieved = @seam_stitch.retrieve({next: params[:next]})
+    # data = {seam_stitches: { data: [] } }
     data = retrieved.map do |seam_stitch|
-      {
-        id: seam_stitch.id,
-        passage: seam_stitch.stitch.passage,
-        branches: {
-          total: seam_stitch.branches.count,
-          data: seam_stitch.branches.map do |branch|
-            {
-              id: branch.id,
-              passage: branch.stitch.passage
-            }
-          end
-        }
-      }
+      seam_stitch.jsonize
     end
 
     respond_to do |format|
@@ -81,6 +70,29 @@ class SeamStitchesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to seam_stitches_url }
       format.json { head :no_content }
+    end
+  end
+
+
+  def offer_page
+    valid = false;
+    # valid_seam_stitch = @seam_stitch ? true : false
+
+    # -- Create new page
+    page = Stitch.create(passage: params[:passage])
+
+    if @seam_stitch && !page.errors.present?
+      offered_page = OfferedPage.create(seam_stitch_id: @seam_stitch.id, page_commit_id: page.stitch_commit_id)
+
+      # -- Build response data
+      response_data = [@seam_stitch.jsonize]
+    else
+      response_data = nil
+    end
+
+    respond_to do |format|
+      format.html { redirect_to seams_url }
+      format.json { render json: response_data }
     end
   end
 

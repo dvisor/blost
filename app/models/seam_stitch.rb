@@ -9,8 +9,36 @@ class SeamStitch < ActiveRecord::Base
   has_many :seam_stitch_branches
   has_many :branches, through: :seam_stitch_branches
 
-  def pages
-    []
+  has_many :pages, class_name: :OfferedPage
+
+
+  def jsonize
+    data = {id: self.id}
+
+    data[:passage] = self.stitch.passage rescue nil
+
+    data[:pages] = {
+      total: self.pages.count,
+      data: self.pages.map do |page|
+        {
+          id: page.id,
+          passage: page.passage
+        }
+      end
+    }
+
+    data[:branches] = {
+      total: self.branches.count,
+      data: self.branches.map do |branch|
+        {
+          id: branch.id,
+          passage: (branch.stitch.passage rescue nil)
+        }
+      end
+    }
+
+    return data
+
   end
 
   # def branches

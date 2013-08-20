@@ -11,11 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130806162229) do
+ActiveRecord::Schema.define(version: 20130819230937) do
 
   create_table "git_objects", force: true do |t|
     t.string   "sha1"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "offered_pages", force: true do |t|
+    t.integer  "page_commit_id"
+    t.integer  "seam_stitch_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
