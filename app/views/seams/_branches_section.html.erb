@@ -1,11 +1,11 @@
-<div id="seam-stitch-branch-container">
+<div>
 <!-- 
   <div id="seam-stitch-branch-controls" class="seam-stitch-branch-controls">
     <button type="button" id="create-branch-button">Create Branch</button>
   </div>
  -->
   <ul class="nav nav-tabs">
-    <li>
+    <li class="active">
       <a href="#seam-stitch-branch-list-container" data-toggle="tab">All</a>
     </li>
     <li>
@@ -14,7 +14,9 @@
   </ul>
 
   <div class="tab-content">
-    <div  class="tab-pane seam-stitch-branch-list-container active" id="seam-stitch-branch-list-container">
+    <div  class="tab-pane active seam-stitch-branch-list-container" id="seam-stitch-branch-list-container">
+
+
       <ul id="seam-stitch-branch-list" class="horizontal-list-view">
       <% for branch in @seam_stitch.branches %>
         <li>

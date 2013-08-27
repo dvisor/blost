@@ -50,15 +50,24 @@
         </div>
       </div>
 
-      <div>
-        <button type="button" id="pages-button">Pages</button>
-        <button type="button" id="branches-button">Branches (<%= @seam_stitch.branches.count %>)</button>
-      </div>
-
       <div id="seam-stitch-tier4" class="seam-stitch-tier4">
-        <%= render "pages_section", seam_stitch: @seam_stitch %>
-        <%= render "branches_section", seam_stitch: @seam_stitch %>
-      </div>
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#seam-stitch-page-container" data-toggle="tab">Pages (<%= @seam_stitch.pages.count %>)</a>
+          </li>
+          <li>
+            <a href="#seam-stitch-branch-container" data-toggle="tab">Branches (<%= @seam_stitch.branches.count %>)</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="seam-stitch-page-container">
+            <%= render "pages_section", seam_stitch: @seam_stitch %>
+          </div>
+          <div class="tab-pane" id="seam-stitch-branch-container">
+            <%= render "branches_section", seam_stitch: @seam_stitch %>
+          </div>
+        </div>
 
 
     </div>

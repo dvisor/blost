@@ -101,13 +101,14 @@
 }
 
 .seam-stitch-branch-list-container {
-  height: 200px;
+  // height: 200px;
+  min-height: 200px;
 }
 
 .branch-list-item {
 
   width: 200px;
-  height: 100%;
+  height: 200px;
   // float: left;
 }
 
@@ -132,7 +133,7 @@
 }
 
 .horizontal-list-view {
-  height  : 100%;
+  // height: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   display: block;
@@ -144,16 +145,31 @@
     // list-style-image: none;
 }
 .horizontal-list-view li {
-  height: 100%;
+  // height: 100%;
   vertical-align: top;
   display: inline-block;
     // float: left;
   margin: 0;
 }
 
-.horizontal-list-view li div {
+.page-item {
+  margin: 0px 16px;
+  padding: 0px 16px;
 
-  height: 100%;
+}
+
+.page-item .controls {
+  padding: 16px 0px;
+}
+
+.page-item .passage {
+
+  width: 200px;
+  height: 200px;
+  // height: 100%;
+  // float: left;
+  padding: 0px 16px;
+  // height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   // clear: both;
@@ -163,8 +179,7 @@
   color:#eee;
   //       margin: 0 4px;
   // padding: 10px 20px;
-    margin: 0px 16px;
-  padding: 0px 16px;
+
   background:#3c66ad;
   font-size:16px;
   font-weight: bold;
@@ -184,14 +199,16 @@
 }
 
 .seam-stitch-page-list-container {
-  height: 200px;
+  // height: 200px;
+  min-height: 200px;
 }
 
-.page-list-item {
+.page-item .passage {
 
-  width: 200px;
-  height: 100%;
-  // float: left;
+}
+
+.page-item .passage.active {
+  background:#336633;
 }
 
 .new-page-text {

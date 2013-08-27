@@ -1,11 +1,11 @@
-<div id="seam-stitch-page-container">
+<div>
 <!-- 
   <div id="seam-stitch-page-controls" class="seam-stitch-page-controls">
     <button type="button" id="create-page-button">Create page</button>
   </div>
  -->
   <ul class="nav nav-tabs">
-    <li>
+    <li class="active">
       <a href="#seam-stitch-page-list-container" data-toggle="tab">All</a>
     </li>
     <li>
@@ -14,13 +14,14 @@
   </ul>
 
   <div class="tab-content">
-    <div  class="tab-pane seam-stitch-page-list-container active" id="seam-stitch-page-list-container">
+    <div class="tab-pane active seam-stitch-page-list-container active" id="seam-stitch-page-list-container">
+
+      <button id="promote-page-to-stitch-button" type="button" class="btn btn-default">Stitch</button>
+
       <ul id="seam-stitch-page-list" class="horizontal-list-view">
       <% for page in @seam_stitch.pages %>
         <li>
-          <div class="page-list-item">
-            <%= page.passage %>
-          </div>
+
         </li>
       <% end %>
       </ul>

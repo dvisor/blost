@@ -2,6 +2,42 @@
   dvisor.util.defineDeep(dvisor, ["blost", "data"], {});
 }( window.dvisor = window.dvisor || {}, jQuery ));
 
+
+(function( page, $, undefined ) {
+
+
+  page.pageItem = function(options) {
+    var that = {};
+  
+    var listView = typeof options.listView !== 'undefined' ? options.listView : undefined;
+    var seamStitchId = typeof options.seamStitchId != 'undefined' ? options.seamStitchId : undefined;
+    var pageId = typeof options.pageId !== 'undefined' ? options.pageId : undefined;
+    var passage = typeof options.passage !== 'undefined' ? options.passage : "";
+
+    that.base = $("<div>").addClass("page-item").append(
+      $("<div>").addClass("controls").append(
+        $("<button>").attr("type", "button").addClass("btn btn-default turn-page-to-stitch").html("Stitch").click(function(event) {
+          alert("" + seamStitchId +  " " + pageId );
+        })
+      )
+    );
+    that.base.append(
+      $("<div>").addClass("passage").html(passage).click(function(event) {
+        // var $pageItems = $("#seam-stitch-page-list li");
+        var $pageItems = listView.find(".page-item");
+        $pageItems.find(".passage").removeClass("active");
+        $pageItems.find(".controls").invisible();
+
+        $(event.target).addClass("active");
+        $(event.target).parents("li").find(".controls").visible();
+      })
+    );
+
+    return that;
+  };
+
+}( dvisor.blost.page = dvisor.blost.page || {}, jQuery ));
+
 (function( seam, $, undefined ) {
 
 
@@ -55,14 +91,15 @@
         var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
         branchList.append(branchItem);
       });
-  
+
     var pageList = $("#seam-stitch-page-list");
     pageList.empty();
-    $("#pages-button").html("Pages (" + seamStitch.pages.total + ")");
-    $.each(seamStitch.pages.data, function(index, seamStitch) {
-        var pageItem = $("<li>").append($("<div>").addClass("page-list-item").html(seamStitch.passage));
-        pageList.append(pageItem);
-      });
+    $("#pages-button").text("Pages (" + seamStitch.pages.total + ")");
+    $.each(seamStitch.pages.data, function(index, page) {
+      // -- Build page item with click function.
+      var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, pageId : page.id, passage : page.passage}).base);//.click(function(event){alert("item");});
+      pageList.append(listItem);
+    });
   };
 
 }( dvisor.blost.seam = dvisor.blost.seam || {}, jQuery ));
@@ -179,22 +216,49 @@ $(function() {
           passage: $("#new-page-text").val()
         });
     });
+
+    // $("#seam-stitch-page-list").on('mousewheel', function(event) {
+    //   // cross-browser wheel delta
+    //   var e = window.event || e; // old IE support
+    //   var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    //   this.scrollLeft -= (delta * 50);
+    //   event.preventDefault();
+    // });
+
+
   };
 
-  initPages();
+  var changeLayout = function(layoutName) {
+    switch (layoutName) {
+      case "pages":
+        $("#seam-stitch-tier4").children().hide();
+        $("#seam-stitch-page-container").show();
+        break;
+      case "branches":
+        $("#seam-stitch-tier4").children().hide();
+        $("#seam-stitch-branch-container").show();
+        break;  
+    }
+  };
+
+  var init = function() {
+    // changeLayout("pages");
+    initPages();
+    $("#promote-page-to-stitch-button").prop("disabled", true);
+  };
+
+  init();
 
 
 
-  $("#seam-stitch-page-container").hide();
+
 
   $("#pages-button").click(function(event) {
-    $("#seam-stitch-tier4").children().hide();
-    $("#seam-stitch-page-container").show();
+    changeLayout("pages");
   });
 
   $("#branches-button").click(function(event) {
-    $("#seam-stitch-tier4").children().hide();
-    $("#seam-stitch-branch-container").show();
+    changeLayout("branches");
   });
 
 
