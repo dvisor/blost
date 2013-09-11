@@ -67,15 +67,32 @@ class SeamsController < ApplicationController
     seam = Seam.find_by_id(params[:seam_id])
     valid_seam = seam ? true : false
 
-    # -- Create new stitch and add to seam
-    stitch = Stitch.create(passage: params[:passage])
+    page = Stitch.find_by_id(params[:page_id])
+    valid_page = page ? true : false
+
+    target_seam_stitch_id = params[:seam_stitch_id]
+    target_seam_stitch = SeamStitch.find_by_id(target_seam_stitch_id)
+    valid_seam_stitch = target_seam_stitch ? true : false
+
+    position = params[:position]
+
+    
+    if valid_page
+      stitch = page
+    else
+      # -- Create new stitch and add to seam
+      stitch = Stitch.create(passage: params[:passage])
+    end
 
     if valid_seam && !stitch.errors.present?
-      seam_stitch = seam.push_stitch(stitch)
+      new_seam_stitch = seam.insert_stitch(target_seam_stitch_id, stitch, {position: position})
+      new_seam_stitch_data = new_seam_stitch.jsonize rescue nil
+      # seam_stitch = seam.push_stitch(stitch)
       # -- Build response data
       response_data = {
-        seam_id: seam.id,
-        message: stitch.passage
+        seam_stitch: {
+          data: [new_seam_stitch_data]
+        }
       }
     else
       response_data = nil

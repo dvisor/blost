@@ -1,7 +1,7 @@
 class SeamStitch < ActiveRecord::Base
 
   belongs_to :seam
-  belongs_to :stitch
+  belongs_to :page_commit, class_name: :StitchCommit
 
   belongs_to :prev_seam_stitch, class_name: :SeamStitch
   belongs_to :next_seam_stitch, class_name: :SeamStitch
@@ -15,7 +15,7 @@ class SeamStitch < ActiveRecord::Base
   def jsonize
     data = {id: self.id}
 
-    data[:passage] = self.stitch.passage rescue nil
+    data[:passage] = self.page_commit.passage rescue nil
 
     data[:pages] = {
       total: self.pages.count,

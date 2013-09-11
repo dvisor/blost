@@ -17,9 +17,17 @@
     that.base = $("<div>").addClass("page-item").append(
       $("<div>").addClass("controls").append(
         $("<button>").attr("type", "button").addClass("btn btn-default turn-page-to-stitch").html("Stitch").click(function(event) {
-          alert("" + seamStitchId +  " " + pageId );
+          dvisor.blost.seam.ajax.addStitch(
+            {
+              seam_stitch_id: seamStitchId,
+              page_id: pageId,
+              position: "after"
+            }
+          );
+        
+          //alert("" + seamStitchId +  " " + pageId );
         })
-      )
+      ).invisible()
     );
     that.base.append(
       $("<div>").addClass("passage").html(passage).click(function(event) {
@@ -86,7 +94,7 @@
 
     $("#seam-stitch-text").html(seamStitch.passage);
     branchList.empty();
-    $("#branches-button").html("Branches (" + seamStitch.branches.total + ")");
+    $("#seam-stitch-branch-tab").html("Branches (" + seamStitch.branches.total + ")");
     $.each(seamStitch.branches.data, function(index, seamStitch) {
         var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
         branchList.append(branchItem);
@@ -94,7 +102,7 @@
 
     var pageList = $("#seam-stitch-page-list");
     pageList.empty();
-    $("#pages-button").text("Pages (" + seamStitch.pages.total + ")");
+    $("#seam-stitch-page-tab").text("Pages (" + seamStitch.pages.total + ")");
     $.each(seamStitch.pages.data, function(index, page) {
       // -- Build page item with click function.
       var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, pageId : page.id, passage : page.passage}).base);//.click(function(event){alert("item");});
