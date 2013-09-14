@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911034317) do
+ActiveRecord::Schema.define(version: 20130914182318) do
 
   create_table "git_objects", force: true do |t|
     t.string   "sha1"
@@ -23,6 +23,21 @@ ActiveRecord::Schema.define(version: 20130911034317) do
   create_table "offered_pages", force: true do |t|
     t.integer  "page_commit_id"
     t.integer  "seam_stitch_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "page_commits", force: true do |t|
+    t.integer  "page_id"
+    t.integer  "git_object_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pages", force: true do |t|
+    t.integer  "author_id"
+    t.integer  "source_page_commit_id"
+    t.integer  "page_commit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,21 +63,6 @@ ActiveRecord::Schema.define(version: 20130911034317) do
     t.integer  "start_seam_stitch_id"
     t.integer  "end_seam_stitch_id"
     t.integer  "author_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "stitch_commits", force: true do |t|
-    t.integer  "stitch_id"
-    t.integer  "git_object_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "stitches", force: true do |t|
-    t.integer  "author_id"
-    t.integer  "source_stitch_commit_id"
-    t.integer  "stitch_commit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

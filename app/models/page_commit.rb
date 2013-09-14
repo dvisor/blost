@@ -1,14 +1,14 @@
-class StitchCommit < ActiveRecord::Base
+class PageCommit < ActiveRecord::Base
 
   validates_presence_of :git_object_id
 
   belongs_to :git_object
-  belongs_to :stitch
+  belongs_to :page
 
   before_validation :set_git_object
 
   def author
-    self.stitch.author rescue nil
+    self.page.author rescue nil
   end
 
   def passage

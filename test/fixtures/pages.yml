@@ -2,10 +2,10 @@
 
 one:
   author_id: 1
-  source_stitch_commit_id: 1
-  stitch_commit_id: 1
+  source_page_commit_id: 1
+  page_commit_id: 1
 
 two:
   author_id: 1
-  source_stitch_commit_id: 1
-  stitch_commit_id: 1
+  source_page_commit_id: 1
+  page_commit_id: 1

@@ -1,10 +1,10 @@
 class OfferedPage < ActiveRecord::Base
 
   belongs_to :seam_stitch
-  belongs_to :page_commit, class_name: :StitchCommit
+  belongs_to :page_commit
 
   def page
-    self.page_commit.stitch rescue nil
+    self.page_commit.page rescue nil
   end
 
   def passage

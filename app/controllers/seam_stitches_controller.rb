@@ -79,10 +79,10 @@ class SeamStitchesController < ApplicationController
     # valid_seam_stitch = @seam_stitch ? true : false
 
     # -- Create new page
-    page = Stitch.create(passage: params[:passage])
+    page = Page.create(passage: params[:passage])
 
     if @seam_stitch && !page.errors.present?
-      offered_page = OfferedPage.create(seam_stitch_id: @seam_stitch.id, page_commit_id: page.stitch_commit_id)
+      offered_page = OfferedPage.create(seam_stitch_id: @seam_stitch.id, page_commit_id: page.page_commit_id)
 
       # -- Build response data
       response_data = [@seam_stitch.jsonize]
@@ -104,6 +104,6 @@ class SeamStitchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seam_stitch_params
-      params.require(:seam_stitch).permit(:seam_id, :stitch_id, :prev_seam_stitch_id, :next_seam_stitch_id)
+      params.require(:seam_stitch).permit(:seam_id, :page_commit_id, :prev_seam_stitch_id, :next_seam_stitch_id)
     end
 end

@@ -1,7 +1,7 @@
 class SeamStitch < ActiveRecord::Base
 
   belongs_to :seam
-  belongs_to :page_commit, class_name: :StitchCommit
+  belongs_to :page_commit
 
   belongs_to :prev_seam_stitch, class_name: :SeamStitch
   belongs_to :next_seam_stitch, class_name: :SeamStitch

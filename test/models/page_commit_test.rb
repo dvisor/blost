@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StitchCommitTest < ActiveSupport::TestCase
+class PageCommitTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

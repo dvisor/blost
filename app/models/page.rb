@@ -1,12 +1,12 @@
-class Stitch < ActiveRecord::Base
+class Page < ActiveRecord::Base
 
   attr_reader :char_limit
 
 
-  belongs_to :stitch_commit
-  has_many :stitch_commits
+  belongs_to :page_commit
+  has_many :page_commits
 
-  belongs_to :source_stitch_commit, class_name: :StitchCommit
+  belongs_to :source_page_commit, class_name: :PageCommit
 
   has_many :seam_stitches
   has_many :seams, through: :seam_stitches
@@ -29,9 +29,9 @@ class Stitch < ActiveRecord::Base
 
 
   def passage
-    @passage || stitch_commit.passage rescue nil
-    # if stitch_commit
-    #   @passage = stitch_commit.passage
+    @passage || page_commit.passage rescue nil
+    # if page_commit
+    #   @passage = page_commit.passage
     # end
     # @passage
   end
@@ -47,7 +47,7 @@ class Stitch < ActiveRecord::Base
 
       
     # normalize_passage
-    # stitch_commit.passage = passage
+    # page_commit.passage = passage
   end
 
   def verify_passage
@@ -55,10 +55,10 @@ class Stitch < ActiveRecord::Base
     puts @passage
 
     if @passage.blank?
-      errors.add(:stitch, "Passage cannot be blank.")
+      errors.add(:page, "Passage cannot be blank.")
     else
       if @passage.length > char_limit 
-        errors.add(:stitch, "Passage character limit #{@char_limit} exceeded.")
+        errors.add(:page, "Passage character limit #{@char_limit} exceeded.")
       end
     end
 
@@ -69,10 +69,10 @@ class Stitch < ActiveRecord::Base
   def pre_save
     puts __method__
 
-    if stitch_commit && stitch_commit.contains?(@passage)
+    if page_commit && page_commit.contains?(@passage)
     else
-      puts "Creating StitchCommit"
-      self.stitch_commit_id = StitchCommit.create(passage: @passage).id
+      puts "Creating PageCommit"
+      self.page_commit_id = PageCommit.create(passage: @passage).id
       puts self
     end
   end
@@ -80,8 +80,8 @@ class Stitch < ActiveRecord::Base
   def post_save
     puts __method__
 
-    puts "Attaching StitchCommit"
-    stitch_commit.update_attribute(:stitch_id, self.id)
+    puts "Attaching PageCommit"
+    page_commit.update_attribute(:page_id, self.id)
     puts self
 
   end

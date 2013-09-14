@@ -9,7 +9,7 @@ Blost::Application.routes.draw do
   post "seams/:id/add_stitch", to: "seams#add_stitch"
   post "seams/:id/add_branch", to: "seams#add_branch"
 
-  resources :stitch_commits
+  resources :page_commits
 
   resources :seam_stitch_branches
 
@@ -17,7 +17,7 @@ Blost::Application.routes.draw do
 
   post "seam_stitches/:id/offer_page", to: "seam_stitches#offer_page"
 
-  resources :stitches
+  resources :pages
 
   resources :git_objects
 

@@ -7,8 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Seam.destroy_all
-Stitch.destroy_all
-StitchCommit.destroy_all
+Page.destroy_all
+PageCommit.destroy_all
 SeamStitch.destroy_all
 SeamStitchBranch.destroy_all
 GitObject.destroy_all

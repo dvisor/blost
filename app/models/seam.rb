@@ -4,7 +4,7 @@ class Seam < ActiveRecord::Base
   belongs_to :end_seam_stitch, class_name: :SeamStitch
 
   has_many :seam_stitches
-  has_many :stitches, through: :seam_stitches
+  # has_many :stitches, through: :seam_stitches
 
   def push(page_commit)
     puts "#{self.class.name}.#{__method__}"
@@ -53,14 +53,14 @@ class Seam < ActiveRecord::Base
     position_after = options[:position].to_s == "after" rescue false
 
     case page_commit
-    when StitchCommit
-    when Stitch
-      page_commit = page_commit.stitch_commit
+    when PageCommit
+    when Page
+      page_commit = page_commit.page_commit
       if page_commit.nil?
         return nil
       end
     when String
-      page_commit = Stitch.create(passage: page_commit).stitch_commit
+      page_commit = Page.create(passage: page_commit).page_commit
     else
       return nil
     end
@@ -149,14 +149,14 @@ class Seam < ActiveRecord::Base
     puts options.inspect
     puts options[:passage]
     # -- Create new stitch
-    stitch = Stitch.create(passage: options[:passage])
+    page = Page.create(passage: options[:passage])
 
-    if stitch.errors.present?
-      puts stitch.errors.inspect
+    if page.errors.present?
+      puts page.errors.inspect
       self.errors.add(:branch, "Unable to branch")
     else
       new_seam = Seam.create();
-      new_seam_stitch = new_seam.push(stitch);
+      new_seam_stitch = new_seam.push(page);
       if new_seam_stitch
         SeamStitchBranch.create(seam_stitch_id: seam_stitch_id, branch_seam_stitch_id: new_seam_stitch.id)
       else

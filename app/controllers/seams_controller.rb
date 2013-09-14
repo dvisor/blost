@@ -80,9 +80,9 @@ class SeamsController < ApplicationController
     if valid_offered_page
       page_commit = offered_page.page_commit
     else
-      # -- Create new stitch and add to seam
-      stitch = Stitch.create(passage: params[:passage])
-      page_commit = stitch.errors.present? ? nil : stitch.stitch_commit
+      # -- Create new page and add to seam
+      page = Page.create(passage: params[:passage])
+      page_commit = page.errors.present? ? nil : page.page_commit
     end
 
     if valid_seam && page_commit
