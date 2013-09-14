@@ -9,7 +9,7 @@ class SeamStitch < ActiveRecord::Base
   has_many :seam_stitch_branches
   has_many :branches, through: :seam_stitch_branches
 
-  has_many :pages, class_name: :OfferedPage
+  has_many :offered_pages
 
 
   def jsonize
@@ -17,12 +17,12 @@ class SeamStitch < ActiveRecord::Base
 
     data[:passage] = self.page_commit.passage rescue nil
 
-    data[:pages] = {
-      total: self.pages.count,
-      data: self.pages.map do |page|
+    data[:offered_pages] = {
+      total: self.offered_pages.count,
+      data: self.offered_pages.map do |offered_page|
         {
-          id: page.id,
-          passage: page.passage
+          id: offered_page.id,
+          passage: offered_page.passage
         }
       end
     }
@@ -32,13 +32,17 @@ class SeamStitch < ActiveRecord::Base
       data: self.branches.map do |branch|
         {
           id: branch.id,
-          passage: (branch.stitch.passage rescue nil)
+          passage: (branch.passage rescue nil)
         }
       end
     }
 
     return data
 
+  end
+
+  def passage
+    page_commit.passage rescue nil
   end
 
   # def branches

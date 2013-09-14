@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130819230937) do
+ActiveRecord::Schema.define(version: 20130911034317) do
 
   create_table "git_objects", force: true do |t|
     t.string   "sha1"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20130819230937) do
 
   create_table "seam_stitches", force: true do |t|
     t.integer  "seam_id"
-    t.integer  "stitch_id"
+    t.integer  "page_commit_id"
     t.integer  "prev_seam_stitch_id"
     t.integer  "next_seam_stitch_id"
     t.datetime "created_at"

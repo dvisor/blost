@@ -11,7 +11,7 @@
   
     var listView = typeof options.listView !== 'undefined' ? options.listView : undefined;
     var seamStitchId = typeof options.seamStitchId != 'undefined' ? options.seamStitchId : undefined;
-    var pageId = typeof options.pageId !== 'undefined' ? options.pageId : undefined;
+    var offeredPageId = typeof options.offeredPageId !== 'undefined' ? options.offeredPageId : undefined;
     var passage = typeof options.passage !== 'undefined' ? options.passage : "";
 
     that.base = $("<div>").addClass("page-item").append(
@@ -20,7 +20,7 @@
           dvisor.blost.seam.ajax.addStitch(
             {
               seam_stitch_id: seamStitchId,
-              page_id: pageId,
+              offered_page_id: offeredPageId,
               position: "after"
             }
           );
@@ -102,10 +102,10 @@
 
     var pageList = $("#seam-stitch-page-list");
     pageList.empty();
-    $("#seam-stitch-page-tab").text("Pages (" + seamStitch.pages.total + ")");
-    $.each(seamStitch.pages.data, function(index, page) {
+    $("#seam-stitch-page-tab").text("Pages (" + seamStitch.offered_pages.total + ")");
+    $.each(seamStitch.offered_pages.data, function(index, offeredPage) {
       // -- Build page item with click function.
-      var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, pageId : page.id, passage : page.passage}).base);//.click(function(event){alert("item");});
+      var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, offeredPageId : offeredPage.id, passage : offeredPage.passage}).base);//.click(function(event){alert("item");});
       pageList.append(listItem);
     });
   };

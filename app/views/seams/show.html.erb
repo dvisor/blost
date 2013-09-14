@@ -38,7 +38,7 @@
           </div>
 
           <div id="seam-stitch-text" class="span10 seam-stitch-text">
-            <%= @seam_stitch.stitch.passage %>
+            <%= @seam_stitch.passage %>
           </div>
 
           <div class="span1 seam-stitch-right-panel centering-block">
@@ -53,7 +53,7 @@
       <div id="seam-stitch-tier4" class="seam-stitch-tier4">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#seam-stitch-page-container" data-toggle="tab" id="seam-stitch-page-tab">Pages (<%= @seam_stitch.pages.count %>)</a>
+            <a href="#seam-stitch-page-container" data-toggle="tab" id="seam-stitch-page-tab">Pages (<%= @seam_stitch.offered_pages.count %>)</a>
           </li>
           <li>
             <a href="#seam-stitch-branch-container" data-toggle="tab" id="seam-stitch-bramch-tab">Branches (<%= @seam_stitch.branches.count %>)</a>
