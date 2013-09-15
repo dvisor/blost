@@ -1,7 +1,7 @@
 class StandardData
 
 
-  def self.alter(standard_data={}, options={})
+  def self.enhance(standard_data={}, options={})
 
     standard_data = standard_data.present? ? standard_data : {}
     standard_data[:data] = standard_data[:data] || {}

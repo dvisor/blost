@@ -10,7 +10,7 @@ class SeamsController < ApplicationController
   # GET /seams/1
   # GET /seams/1.json
   def show
-    @data = @seam.jsonize_show
+    @data = @seam.standardized
     puts @data.inspect
   end
 
@@ -88,14 +88,16 @@ class SeamsController < ApplicationController
 
     if valid_seam && page_commit
       new_seam_stitch = seam.insert(target_seam_stitch_id, page_commit, {position: position})
-      new_seam_stitch_data = new_seam_stitch.jsonize rescue nil
-      # seam_stitch = seam.push_stitch(stitch)
-      # -- Build response data
-      response_data = {
-        seam_stitch: {
-          data: [new_seam_stitch_data]
-        }
-      }
+      # new_seam_stitch_data = new_seam_stitch.jsonize rescue nil
+      # # seam_stitch = seam.push_stitch(stitch)
+      # # -- Build response data
+      # response_data = {
+      #   seam_stitch: {
+      #     data: [new_seam_stitch_data]
+      #   }
+      # }
+
+      response_data = seam.standardized
     else
       response_data = nil
     end

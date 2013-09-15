@@ -17,7 +17,7 @@
     </div>
     <div class="span9 center-panel-container">
       <!-- SEAM STITCH TIER 1 -->
-      <div id="seam-stitch-tier1" class="row-fluid seam-stitch-tier1">
+      <div class="row-fluid seam-stitch-tier tier1">
         <div class="header seam-title"><%= @seam.title %>
         </div>
         <div class="header seam-author">Mainline story seam authored by: Square
@@ -26,30 +26,32 @@
 
       <div class="seam-stitch-container">
         <!-- SEAM STITCH TIER 2 -->
-        <div id="seam-stitch-tier2" class="row-fluid seam-stitch-tier2">
-          <div class="span12 seam-stitch-header">
+        <div class="row-fluid seam-stitch-tier tier2">
+          <div class="span10 offset1 seam-stitch-header">
             Ancestory stitch summary: Magus reveals his connection to Lavos
           </div>
         </div>
         <!-- SEAM STITCH TIER 3 -->
-        <div id="seam-stitch-tier3" class="row-fluid seam-stitch-tier3">
-          <div class="span1 seam-stitch-left-panel">
-          </div>
+        <div class="row-fluid seam-stitch-tier tier3">
+<!--           <div class="span1 seam-stitch-left-panel">
+          </div> -->
 
-          <div id="seam-stitch-text" class="span10 seam-stitch-text">
+          <div id="seam-stitch-text" class="span10 offset1 seam-stitch-text">
             <%#= @seam_stitch.passage %>
           </div>
+        </div>
 
-          <div class="span1 seam-stitch-right-panel centering-block">
-            <div class="centering-block-centered">
-              <div><button id="prev-seam-stitch">&lt;</button></div>
-              <div><button id="next-seam-stitch">&gt;</button></div>
+        <div class="row-fluid seam-stitch-tier">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span2 offset4"><button id="prev-seam-stitch" class="btn btn-danger">Prev Stitch</button></div>
+              <div class="span2"><button id="next-seam-stitch" class="btn btn-danger">Next Stitch</button></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="seam-stitch-tier4" class="seam-stitch-tier4">
+      <div class="seam-stitch-tier4">
         <ul class="nav nav-tabs">
           <li class="active">
             <a href="#seam-stitch-page-container" data-toggle="tab" id="seam-stitch-page-tab">Pages (<%#= @seam_stitch.offered_pages.count %>)</a>

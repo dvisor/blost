@@ -51,17 +51,17 @@
 
 
   // -- Add stitch into seam.
-  seam.addStitch = function(data) {
-    $("#new-seam-stitch-text").val('');
-    if( data && data.message ) {
-      $("#new-seam-stitch").before($("<div>").addClass("seam-stitch").html(data.message));
-    }
-  };
+  // seam.addStitch = function(data) {
+  //   $("#new-seam-stitch-text").val('');
+  //   if( data && data.message ) {
+  //     $("#new-seam-stitch").before($("<div>").addClass("seam-stitch").html(data.message));
+  //   }
+  // };
 
   // -- Add stitch into seam.
-  seam.offerPage = function(data) {
+  // seam.offerPage = function(data) {
 
-  };
+  // };
 
 
 
@@ -69,13 +69,13 @@
 
 
   // -- Add branch from seam.
-  seam.addBranch = function(data) {
-    // $("#new-seam-stitch-text").val('');
-    // if( data && data.message ) {
-    //   $("#new-seam-stitch").before($("<div>").addClass("seam-stitch").html(data.message));
-    // }
-    alert(data);
-  };
+  // seam.addBranch = function(data) {
+  //   // $("#new-seam-stitch-text").val('');
+  //   // if( data && data.message ) {
+  //   //   $("#new-seam-stitch").before($("<div>").addClass("seam-stitch").html(data.message));
+  //   // }
+  //   alert(data);
+  // };
 
   // seam.updateSeamStitchData = function(data) {
   //   console.log("updateSeamStitchData")
@@ -130,7 +130,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_id : dvisor.blost.data.seam.active_id
+      seam_id : dvisor.blost.data.seam.active_ids[0]
     };
 
     // -- Build request data.
@@ -141,7 +141,9 @@
       url: '/seams/' + data.seam_id + '/add_stitch/',
       data: data,
       success: function(data) {
-        dvisor.blost.seam.addStitch(data);
+        // dvisor.blost.seam.addStitch(data);
+        $.extend(true, dvisor.blost.data, data);
+        dvisor.blost.seam.updateSeamStitchDisplay();
       }
     });
   };
@@ -150,7 +152,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_stitch_id : dvisor.blost.data.seamStitch.active_id
+      seam_stitch_id : dvisor.blost.data.seamStitch.active_ids[0]
     };
 
     // -- Build request data.
@@ -182,7 +184,9 @@
       url: '/seams/' + data.seam_id + '/add_branch/',
       data: data,
       success: function(data) {
-        dvisor.blost.seam.addBranch(data);
+        // dvisor.blost.seam.addBranch(data);
+        $.extend(true, dvisor.blost.data, data);
+        dvisor.blost.seam.updateSeamStitchDisplay();
       }
     });
   };

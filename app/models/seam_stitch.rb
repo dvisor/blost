@@ -12,6 +12,17 @@ class SeamStitch < ActiveRecord::Base
   has_many :offered_pages
 
 
+  def self.standardize(seam_stitch_id)
+    begin
+      seam_stitch = self.find(seam_stitch_id)
+    rescue ActiveRecord::RecordNotFound
+      return nil
+    end
+
+    {data: {seam_stitch_id => seam_stitch.jsonize}, order: [seam_stitch_id]}
+  end
+
+
   def jsonize
     data = {id: self.id}
 
@@ -41,15 +52,7 @@ class SeamStitch < ActiveRecord::Base
 
   end
 
-  def self.standardize(seam_stitch_id)
-    begin
-      seam_stitch = self.find(seam_stitch_id)
-    rescue ActiveRecord::RecordNotFound
-      return nil
-    end
 
-    {data: {seam_stitch_id => seam_stitch.jsonize}, order: [seam_stitch_id]}
-  end
 
 
 
@@ -80,12 +83,16 @@ class SeamStitch < ActiveRecord::Base
 
   def retrieve(options={})
 
+    puts options.inspect
+
     prev_count = options[:prev].to_i rescue nil
     prev_valid = !options[:prev].nil? && (prev_count.is_a? Integer)
     next_count = options[:next].to_i rescue nil
     next_valid = !options[:next].nil? && (next_count.is_a? Integer)
 
     jsonize = options[:jsonize]
+    # standardize = options[:standardize]
+    include_origin = options[:include_origin]
 
     puts next_count
     puts prev_count
@@ -97,6 +104,12 @@ class SeamStitch < ActiveRecord::Base
 
     data = {}
     order = []
+
+    if include_origin
+      data[self.id] = jsonize ? self.jsonize : self
+      order.push(self.id)
+    end
+
     current = self
     if next_count < 0
       prev_ss = current.prev_seam_stitch

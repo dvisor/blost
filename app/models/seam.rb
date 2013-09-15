@@ -10,6 +10,16 @@ class Seam < ActiveRecord::Base
     where(parent_seam_id: nil)
   end
 
+  def self.standardize(seam_id)
+    begin
+      seam = self.find(seam_id)
+    rescue ActiveRecord::RecordNotFound
+      return nil
+    end
+
+    {data: {seam_id => seam.jsonize}, order: [seam_id]}
+  end
+
   def jsonize
     data = {id: self.id}
 
@@ -18,15 +28,37 @@ class Seam < ActiveRecord::Base
     return data
   end
 
-  def jsonize_show
-    seam_stitch = self.end_seam_stitch
-    return_data = {}
-    return_data[:seam] = {
-      active_id: self.id,
-      data: {self.id => self.jsonize}
-    }
+  def standardized(options={})
 
-    return_data[:seam_stitch] = StandardData.alter(SeamStitch.standardize(self.end_seam_stitch_id), {active_ids: [self.end_seam_stitch_id]})
+    seam_stitch_options = options[:seam_stitch].is_a?(Hash) ? Utilities.deep_dup(options[:seam_stitch]) : {}
+
+    seam_stitch_retrieve_options = seam_stitch_options[:retrieve] = seam_stitch_options[:retrieve].is_a?(Hash) ? seam_stitch_options[:retrieve] : {}
+
+    seam_stitch_standardize_options = seam_stitch_options[:standardize] = seam_stitch_options[:standardize].is_a?(Hash) ? seam_stitch_options[:standardize] : {}
+
+    origin_seam_stitch = SeamStitch.find_by_id(seam_stitch_retrieve_options[:origin_id])
+
+    if origin_seam_stitch.blank?
+      origin_seam_stitch_id = self.end_seam_stitch_id
+      origin_seam_stitch = SeamStitch.find_by_id(origin_seam_stitch_id)
+      seam_stitch_standardize_options[:active_ids] = [origin_seam_stitch_id]
+      seam_stitch_retrieve_options[:origin_id] = origin_seam_stitch_id
+      seam_stitch_retrieve_options[:include_origin] = true
+      seam_stitch_retrieve_include_origin = true
+      seam_stitch_retrieve_options[:next] = 0
+      seam_stitch_retrieve_options[:prev] = 0
+    end
+
+    seam_stitch_retrieve_options[:jsonize] = true
+    # seam_stitch_retrieve_options[:standardize] = true
+
+
+    return_data = {}
+
+    return_data[:seam] = StandardData.enhance(Seam.standardize(self.id), {active_ids: [self.id]})
+    return_data[:seam_stitch] = StandardData.enhance(
+      origin_seam_stitch.retrieve(seam_stitch_retrieve_options),
+      seam_stitch_standardize_options)
 
     # data = {}
     # order = []
@@ -46,7 +78,7 @@ class Seam < ActiveRecord::Base
     #   data: data,
     #   order: order
     # }
-    
+
     return return_data
   end
 
