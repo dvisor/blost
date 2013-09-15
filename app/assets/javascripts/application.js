@@ -11,9 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require js/jquery-extensions
 //= require js/utilities
 //= require js/bootstrap
+//= require turbolinks
 

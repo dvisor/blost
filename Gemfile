@@ -27,6 +27,10 @@ gem 'jbuilder', '~> 1.2'
 # If not needed, see http://blog.steveklabnik.com/posts/2013-06-25-removing-turbolinks-from-rails-4
 gem 'turbolinks'
 
+gem 'jquery-turbolinks'
+
+gem 'haml'
+
 # Is sdoc necessary? Dependent on rdoc 3.12.2
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

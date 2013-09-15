@@ -1,0 +1,21 @@
+= stylesheet_link_tag params[:controller]
+
+.container
+  .row
+    .span12
+      %h1 Seams
+      = link_to 'New Seam', new_seam_path
+
+  .seam-list
+    - @seams.each do |seam|
+      .row-fluid
+        .span12.seam-item
+          .row-fluid
+            .span1
+              = link_to "View", seam_path(seam), class: "btn btn-danger", data: {seam_id: seam.id}
+            .span11
+
+              %h1= seam.title
+              = seam.end_seam_stitch.passage rescue nil
+
+= javascript_include_tag params[:controller]

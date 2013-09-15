@@ -1,6 +1,5 @@
 <%= stylesheet_link_tag params[:controller] %>
-<div id="seam-data" data-id="<%= @seam.id %>"></div>
-<div id="seam-stitch-data" data-id="<%= @seam_stitch.id %>"></div>
+<%= tag("div", id: "data", data: @data) %>
 
 
 <div class="container main-seam-container">
@@ -19,7 +18,7 @@
     <div class="span9 center-panel-container">
       <!-- SEAM STITCH TIER 1 -->
       <div id="seam-stitch-tier1" class="row-fluid seam-stitch-tier1">
-        <div class="header seam-title">Chrono the Savior
+        <div class="header seam-title"><%= @seam.title %>
         </div>
         <div class="header seam-author">Mainline story seam authored by: Square
         </div>
@@ -38,7 +37,7 @@
           </div>
 
           <div id="seam-stitch-text" class="span10 seam-stitch-text">
-            <%= @seam_stitch.passage %>
+            <%#= @seam_stitch.passage %>
           </div>
 
           <div class="span1 seam-stitch-right-panel centering-block">
@@ -53,10 +52,10 @@
       <div id="seam-stitch-tier4" class="seam-stitch-tier4">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#seam-stitch-page-container" data-toggle="tab" id="seam-stitch-page-tab">Pages (<%= @seam_stitch.offered_pages.count %>)</a>
+            <a href="#seam-stitch-page-container" data-toggle="tab" id="seam-stitch-page-tab">Pages (<%#= @seam_stitch.offered_pages.count %>)</a>
           </li>
           <li>
-            <a href="#seam-stitch-branch-container" data-toggle="tab" id="seam-stitch-bramch-tab">Branches (<%= @seam_stitch.branches.count %>)</a>
+            <a href="#seam-stitch-branch-container" data-toggle="tab" id="seam-stitch-bramch-tab">Branches (<%#= @seam_stitch.branches.count %>)</a>
           </li>
         </ul>
 

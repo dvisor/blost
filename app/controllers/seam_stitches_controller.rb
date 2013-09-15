@@ -12,15 +12,25 @@ class SeamStitchesController < ApplicationController
   def show
     @seam_stitch = SeamStitch.find_by_id(params[:id])
 
-    retrieved = @seam_stitch.retrieve({next: params[:next]})
-    # data = {seam_stitches: { data: [] } }
-    data = retrieved.map do |seam_stitch|
-      seam_stitch.jsonize
-    end
-
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: data }
+      format.json {
+        standard_data = @seam_stitch.retrieve({next: params[:next], jsonize: true})
+        StandardData.alter(standard_data, {active_ids: [standard_data[:order].first]})
+
+        # if data[:order].blank?
+        #   active_id = nil
+        #   active_index = nil
+        # else
+        #   active_id = data[:order][0]
+        #   active_index = 0
+        # end
+
+        # data.merge!({active_id: active_id, active_index: active_index})
+        response_data = {seam_stitch: standard_data}
+        puts response_data.inspect
+        render json: response_data
+      }
     end
   end
 

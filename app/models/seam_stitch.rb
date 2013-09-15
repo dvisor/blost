@@ -41,6 +41,18 @@ class SeamStitch < ActiveRecord::Base
 
   end
 
+  def self.standardize(seam_stitch_id)
+    begin
+      seam_stitch = self.find(seam_stitch_id)
+    rescue ActiveRecord::RecordNotFound
+      return nil
+    end
+
+    {data: {seam_stitch_id => seam_stitch.jsonize}, order: [seam_stitch_id]}
+  end
+
+
+
   def passage
     page_commit.passage rescue nil
   end
@@ -73,6 +85,8 @@ class SeamStitch < ActiveRecord::Base
     next_count = options[:next].to_i rescue nil
     next_valid = !options[:next].nil? && (next_count.is_a? Integer)
 
+    jsonize = options[:jsonize]
+
     puts next_count
     puts prev_count
     if !next_valid
@@ -81,23 +95,30 @@ class SeamStitch < ActiveRecord::Base
 
     puts next_count
 
-    retrieved = []
+    data = {}
+    order = []
     current = self
     if next_count < 0
-      while current.prev_seam_stitch && next_count != 0
-        retrieved.push(prev_seam_stitch)
-        current = prev_seam_stitch
+      prev_ss = current.prev_seam_stitch
+      while prev_ss && next_count != 0
+        data[prev_ss.id] = jsonize ? prev_ss.jsonize : prev_ss
+        order.push(prev_ss.id)
+        current = prev_ss
+        prev_ss = current.prev_seam_stitch
         next_count += 1
       end
     else
-      while current.next_seam_stitch && next_count != 0
-        retrieved.push(next_seam_stitch)
-        current = next_seam_stitch
+      next_ss = current.next_seam_stitch
+      while next_ss && next_count != 0
+        data[next_ss.id] = jsonize ? next_ss.jsonize : next_ss
+        order.push(next_ss.id)
+        current = next_ss
+        next_ss = current.next_seam_stitch
         next_count -= 1
       end
     end
 
-    return retrieved
+    return {data: data, order: order}
 
   end
 

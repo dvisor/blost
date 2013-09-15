@@ -77,19 +77,19 @@
     alert(data);
   };
 
-  seam.updateSeamStitchData = function(data) {
-    console.log("updateSeamStitchData")
-    if( data.length ) {
-      dvisor.util.defineDeep(dvisor.blost.data, ["seamStitches"], {});
-      dvisor.blost.data.seamStitch = data[0];
-      $.each(data, function(index, seamStitch) {
-        dvisor.blost.data.seamStitches[seamStitch.id] = seamStitch;
-      });
-    }
-  };
+  // seam.updateSeamStitchData = function(data) {
+  //   console.log("updateSeamStitchData")
+  //   if( data.length ) {
+  //     dvisor.util.defineDeep(dvisor.blost.data, ["seamStitches"], {});
+  //     dvisor.blost.data.seamStitch = data[0];
+  //     $.each(data, function(index, seamStitch) {
+  //       dvisor.blost.data.seamStitches[seamStitch.id] = seamStitch;
+  //     });
+  //   }
+  // };
 
   seam.updateSeamStitchDisplay = function() {
-    var seamStitch = dvisor.blost.data.seamStitch;
+    var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
     var branchList = $("#seam-stitch-branch-list");
 
     $("#seam-stitch-text").html(seamStitch.passage);
@@ -130,7 +130,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_id : dvisor.blost.data.seam.id
+      seam_id : dvisor.blost.data.seam.active_id
     };
 
     // -- Build request data.
@@ -150,7 +150,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_stitch_id : dvisor.blost.data.seamStitch.id
+      seam_stitch_id : dvisor.blost.data.seamStitch.active_id
     };
 
     // -- Build request data.
@@ -161,7 +161,7 @@
       url: '/seam_stitches/' + data.seam_stitch_id + '/offer_page/',
       data: data,
       success: function(data) {
-        dvisor.blost.seam.updateSeamStitchData(data);
+        $.extend(true, dvisor.blost.data, data);
         dvisor.blost.seam.updateSeamStitchDisplay();
       }
     });
@@ -171,7 +171,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_id : dvisor.blost.data.seam.id
+      seam_id : dvisor.blost.data.seam.active_id
     };
 
     // -- Build request data.
@@ -191,7 +191,7 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_stitch_id : dvisor.blost.data.seamStitch.id,
+      seam_stitch_id : dvisor.blost.data.seamStitch.active_ids[0],
       next : 1
     };
 
@@ -204,7 +204,7 @@
       url: '/seam_stitches/' + data.seam_stitch_id,
       data: data,
       success: function(data) {
-        dvisor.blost.seam.updateSeamStitchData(data);
+        $.extend(true, dvisor.blost.data, data);
         dvisor.blost.seam.updateSeamStitchDisplay();
       }
     });
@@ -213,9 +213,17 @@
 }( dvisor.blost.seam.ajax = dvisor.blost.seam.ajax || {}, jQuery ));
 
 
-$(function() {
-  dvisor.blost.data.seam = $("#seam-data").data();
-  dvisor.blost.data.seamStitch = $("#seam-stitch-data").data();
+var ready = function() {
+  // dvisor.blost.data.seam = $("#seam-data").data();
+  // dvisor.blost.data.seamStitch = $("#seam-stitch-data").data();
+
+  $.extend(true, dvisor.blost.data, $("#data").data());
+  dvisor.blost.data.seam_stitch = dvisor.blost.data.seamStitch;
+  dvisor.blost.seam.updateSeamStitchDisplay();
+
+  var initSeams = function() {
+    // dvisor.blost.seam.ajax.getSeamStitch()
+  };
 
   var initPages = function() {
     $("#offer-new-page").click(function(event) {
@@ -251,6 +259,7 @@ $(function() {
 
   var init = function() {
     // changeLayout("pages");
+    initSeams();
     initPages();
     $("#promote-page-to-stitch-button").prop("disabled", true);
   };
@@ -348,4 +357,7 @@ $(function() {
 
 
 
-});
+};
+
+$(ready);
+// $(document).on('page:load', ready);

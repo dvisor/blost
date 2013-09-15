@@ -4,13 +4,14 @@ class SeamsController < ApplicationController
   # GET /seams
   # GET /seams.json
   def index
-    @seams = Seam.all
+    @seams = Seam.trunks
   end
 
   # GET /seams/1
   # GET /seams/1.json
   def show
-    @seam_stitch = @seam.seam_stitches.first
+    @data = @seam.jsonize_show
+    puts @data.inspect
   end
 
   # GET /seams/new

@@ -13,7 +13,7 @@ SeamStitch.destroy_all
 SeamStitchBranch.destroy_all
 GitObject.destroy_all
 
-seamA = Seam.create()
+seamA = Seam.create(title: "Chrono the Savior")
 seamA.push(
 	"The image saying give multiply first also be let two isn't divide is saying form saying open likeness beginning appear his fly, darkness won't seasons they're forth she'd sea for cattle said land. Air may whales can't moved. Gathering signs and bearing beast have midst darkness fifth. Days him living life. Lesser divide the own thing, gathered air.
 
@@ -34,7 +34,7 @@ Let likeness, him subdue form that fish lesser divided fifth morning signs fourt
 
 	)
 
-seamB = Seam.create()
+seamB = Seam.create(title: "Race to the Moon")
 seamB.push(
 	"The four men had been scrutinized, watched, investigated, and intensively trained for more than a year. They were the best men to be found for that first, all-important flight to the Moon—the pioneer manned rocket that would give either the East or the West control over the Earth.
 

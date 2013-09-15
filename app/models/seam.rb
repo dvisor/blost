@@ -6,6 +6,50 @@ class Seam < ActiveRecord::Base
   has_many :seam_stitches
   # has_many :stitches, through: :seam_stitches
 
+  def self.trunks
+    where(parent_seam_id: nil)
+  end
+
+  def jsonize
+    data = {id: self.id}
+
+    data[:title] = self.title
+
+    return data
+  end
+
+  def jsonize_show
+    seam_stitch = self.end_seam_stitch
+    return_data = {}
+    return_data[:seam] = {
+      active_id: self.id,
+      data: {self.id => self.jsonize}
+    }
+
+    return_data[:seam_stitch] = StandardData.alter(SeamStitch.standardize(self.end_seam_stitch_id), {active_ids: [self.end_seam_stitch_id]})
+
+    # data = {}
+    # order = []
+    # if seam_stitch
+    #   active_id = seam_stitch.id
+    #   active_index = 0
+    #   data[seam_stitch.id] = seam_stitch.jsonize
+    #   order.push(seam_stitch.id)
+    # else
+    #   active_id = nil
+    #   active_index = nil
+    # end
+
+    # return_data[:seam_stitch] = {
+    #   active_id: active_id,
+    #   active_index: active_index,
+    #   data: data,
+    #   order: order
+    # }
+    
+    return return_data
+  end
+
   def push(page_commit)
     puts "#{self.class.name}.#{__method__}"
 
@@ -148,6 +192,15 @@ class Seam < ActiveRecord::Base
     puts "#{self.class.name}.#{__method__}"
     puts options.inspect
     puts options[:passage]
+
+    parent_seam_stitch = SeamStitch.find_by_id(seam_stitch_id)
+    valid_parent_seam_stitch = parent_seam_stitch
+
+    if !valid_parent_seam_stitch
+      self.errors.add(:branch, "Unable to branch - invalid parent seam stitch")
+      return nil
+    end
+
     # -- Create new stitch
     page = Page.create(passage: options[:passage])
 
@@ -155,7 +208,7 @@ class Seam < ActiveRecord::Base
       puts page.errors.inspect
       self.errors.add(:branch, "Unable to branch")
     else
-      new_seam = Seam.create();
+      new_seam = Seam.create(parent_seam_id: parent_seam_stitch.seam_id);
       new_seam_stitch = new_seam.push(page);
       if new_seam_stitch
         SeamStitchBranch.create(seam_stitch_id: seam_stitch_id, branch_seam_stitch_id: new_seam_stitch.id)
