@@ -117,16 +117,14 @@ class SeamsController < ApplicationController
     # -- Create new stitch and add to seam
     # stitch = Stitch.create(passage: params['passage'])
 
-    seam_stitch.branch({passage: params[:passage]})
+    new_seam = seam_stitch.branch({passage: params[:passage]})
     puts seam_stitch.errors.inspect
 
-    if !seam_stitch.errors.present?
+    if !seam_stitch.errors.present? && new_seam
 
       # -- Build response data
-      response_data = {
-        seam_stitch: seam_stitch,
-        message: seam_stitch.passage
-      }
+      response_data = seam_stitch.seam.standardized
+      # response_data = new_seam.standardized
     else
       response_data = nil
     end

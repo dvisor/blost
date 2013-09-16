@@ -46,7 +46,8 @@ class SeamStitch < ActiveRecord::Base
       data: self.branches.map do |branch|
         {
           id: branch.id,
-          passage: (branch.passage rescue nil)
+          passage: (branch.passage rescue nil),
+          seam_id: branch.seam_id
         }
       end
     }
@@ -75,12 +76,13 @@ class SeamStitch < ActiveRecord::Base
     puts "#{self.class.name}.#{__method__}"
     puts options.inspect
     
-    seam.branch(self.id, options)
-    if seam.errors.present?
-      puts seam.errors.inspect
+    new_seam = self.seam.branch(self.id, options)
+    if self.seam.errors.present?
+      puts self.seam.errors.inspect
       self.errors.add(:branch, "Unable to branch")
+    else
+      return new_seam
     end
-
 
   end
 

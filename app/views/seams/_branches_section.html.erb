@@ -4,7 +4,7 @@
     <button type="button" id="create-branch-button">Create Branch</button>
   </div>
  -->
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs" id="seam-stitch-branch-tabs">
     <li class="active">
       <a href="#seam-stitch-branch-list-container" data-toggle="tab">All</a>
     </li>
@@ -14,7 +14,7 @@
   </ul>
 
   <div class="tab-content">
-    <div  class="tab-pane active seam-stitch-branch-list-container" id="seam-stitch-branch-list-container">
+    <div class="tab-pane active seam-stitch-branch-list-container" id="seam-stitch-branch-list-container">
 
 
       <ul id="seam-stitch-branch-list" class="horizontal-list-view">
@@ -22,7 +22,8 @@
       </ul>
     </div>
     <div class="tab-pane" id="seam-stitch-new-branch-container">
-      <textarea class="new-branch-text"></textarea>
+      <textarea id="new-branch-text" class="new-branch-text"></textarea>
+      <button id="start-new-branch" type="button" class="btn btn-default">Branch</button>
     </div>
   </div>
 

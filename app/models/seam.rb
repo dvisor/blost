@@ -244,12 +244,15 @@ class Seam < ActiveRecord::Base
       new_seam_stitch = new_seam.push(page);
       if new_seam_stitch
         SeamStitchBranch.create(seam_stitch_id: seam_stitch_id, branch_seam_stitch_id: new_seam_stitch.id)
+        return new_seam
       else
         puts new_seam.errors.inspect
         new_seam.errors.add(:branch, "Unable to branch")
       end
 
     end
+
+    return nil
 
   end
 

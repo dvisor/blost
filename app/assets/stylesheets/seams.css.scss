@@ -168,17 +168,16 @@
   margin: 0;
 }
 
-.page-item {
+.page-item, .branch-item {
   margin: 0px 8px;
   padding: 0px;
-
 }
 
-.page-item .controls {
+.page-item .controls, .branch-item .controls {
   padding: 16px 0px;
 }
 
-.page-item .passage {
+.page-item .passage, .branch-item .passage {
 
   width: 200px;
   height: 200px;
@@ -207,6 +206,11 @@
 
 }
 
+.page-item .passage.active, .branch-item .passage.active {
+  background:#336633;
+}
+
+
 .new-branch-text {
   resize: none;
   margin: 16px;
@@ -219,13 +223,7 @@
   min-height: 200px;
 }
 
-.page-item .passage {
 
-}
-
-.page-item .passage.active {
-  background:#336633;
-}
 
 .new-page-text {
   resize: none;

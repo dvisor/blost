@@ -29,6 +29,7 @@
         })
       ).invisible()
     );
+
     that.base.append(
       $("<div>").addClass("passage").html(passage).click(function(event) {
         // var $pageItems = $("#seam-stitch-page-list li");
@@ -45,6 +46,43 @@
   };
 
 }( dvisor.blost.page = dvisor.blost.page || {}, jQuery ));
+
+
+(function( branch, $, undefined ) {
+
+
+  branch.branchItem = function(options) {
+    var that = {};
+  
+    var listView = typeof options.listView !== 'undefined' ? options.listView : undefined;
+    var seamStitchId = typeof options.seamStitchId != 'undefined' ? options.seamStitchId : undefined;
+    var seamId = typeof options.seamId != 'undefined' ? options.seamId : undefined;
+    var branchId = typeof options.branchId !== 'undefined' ? options.branchId : undefined;
+    var passage = typeof options.passage !== 'undefined' ? options.passage : "";
+
+    that.base = $("<div>").addClass("branch-item").append(
+      $("<div>").addClass("controls").append(
+        $("<a>").attr("href", "/seams/" + seamId).addClass("btn btn-default view-branch").html("View")
+      ).invisible()
+    );
+    
+    that.base.append(
+      $("<div>").addClass("passage").html(passage).click(function(event) {
+        // var $branchItems = $("#seam-stitch-branch-list li");
+        var $branchItems = listView.find(".branch-item");
+        $branchItems.find(".passage").removeClass("active");
+        $branchItems.find(".controls").invisible();
+
+        $(event.target).addClass("active");
+        $(event.target).parents("li").find(".controls").visible();
+      })
+    );
+
+    return that;
+  };
+
+}( dvisor.blost.branch = dvisor.blost.branch || {}, jQuery ));
+
 
 (function( seam, $, undefined ) {
 
@@ -98,16 +136,21 @@
       that.$pageNewTab = $('#seam-stitch-page-tabs a[href="#seam-stitch-new-page-container"]');
       that.$newPageText = $('#new-page-text');
 
+      that.$branchAllTab = $('#seam-stitch-branch-tabs a[href="#seam-stitch-branch-list-container"]');
+      that.$branchNewTab = $('#seam-stitch-branch-tabs a[href="#seam-stitch-new-branch-container"]');
+      that.$startBranchText = $('#new-branch-text');
+
       that.update = function() {
         var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
-        var branchList = $("#seam-stitch-branch-list");
 
         $("#seam-stitch-text").html(seamStitch.passage);
+
+        var branchList = $("#seam-stitch-branch-list");
         branchList.empty();
         $("#seam-stitch-branch-tab").html("Branches (" + seamStitch.branches.total + ")");
-        $.each(seamStitch.branches.data, function(index, seamStitch) {
-            var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
-            branchList.append(branchItem);
+        $.each(seamStitch.branches.data, function(index, branch) {
+          var listItem = $("<li>").append(dvisor.blost.branch.branchItem({listView: branchList, seamId: branch.seam_id, seamStitchId: seamStitch.id, branchId: branch.id, passage : branch.passage}).base);//.click(function(event){alert("item");});
+            branchList.append(listItem);
           });
 
         var pageList = $("#seam-stitch-page-list");
@@ -127,27 +170,27 @@
   }();
 
 
-  seam.updateSeamStitchDisplay = function() {
-    var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
-    var branchList = $("#seam-stitch-branch-list");
+  // seam.updateSeamStitchDisplay = function() {
+  //   var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
+  //   var branchList = $("#seam-stitch-branch-list");
 
-    $("#seam-stitch-text").html(seamStitch.passage);
-    branchList.empty();
-    $("#seam-stitch-branch-tab").html("Branches (" + seamStitch.branches.total + ")");
-    $.each(seamStitch.branches.data, function(index, seamStitch) {
-        var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
-        branchList.append(branchItem);
-      });
+  //   $("#seam-stitch-text").html(seamStitch.passage);
+  //   branchList.empty();
+  //   $("#seam-stitch-branch-tab").html("Branches (" + seamStitch.branches.total + ")");
+  //   $.each(seamStitch.branches.data, function(index, seamStitch) {
+  //       var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
+  //       branchList.append(branchItem);
+  //     });
 
-    var pageList = $("#seam-stitch-page-list");
-    pageList.empty();
-    $("#seam-stitch-page-tab").text("Pages (" + seamStitch.offered_pages.total + ")");
-    $.each(seamStitch.offered_pages.data, function(index, offeredPage) {
-      // -- Build page item with click function.
-      var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, offeredPageId : offeredPage.id, passage : offeredPage.passage}).base);//.click(function(event){alert("item");});
-      pageList.append(listItem);
-    });
-  };
+  //   var pageList = $("#seam-stitch-page-list");
+  //   pageList.empty();
+  //   $("#seam-stitch-page-tab").text("Pages (" + seamStitch.offered_pages.total + ")");
+  //   $.each(seamStitch.offered_pages.data, function(index, offeredPage) {
+  //     // -- Build page item with click function.
+  //     var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, offeredPageId : offeredPage.id, passage : offeredPage.passage}).base);//.click(function(event){alert("item");});
+  //     pageList.append(listItem);
+  //   });
+  // };
 
 }( dvisor.blost.seam = dvisor.blost.seam || {}, jQuery ));
 
@@ -182,7 +225,7 @@
       success: function(data) {
         // dvisor.blost.seam.addStitch(data);
         $.extend(true, dvisor.blost.data, data);
-        dvisor.blost.seam.updateSeamStitchDisplay();
+        dvisor.blost.seam.display.show.update();
       }
     });
   };
@@ -203,7 +246,7 @@
       data: data,
       success: function(data) {
         $.extend(true, dvisor.blost.data, data);
-        dvisor.blost.seam.updateSeamStitchDisplay();
+        dvisor.blost.seam.display.show.update();
         dvisor.blost.seam.display.show.$pageAllTab.tab('show');
         dvisor.blost.seam.display.show.$newPageText.val('');
       }
@@ -214,7 +257,8 @@
     data = dvisor.util.resolve(data, {});
 
     var defaultData = {
-      seam_id : dvisor.blost.data.seam.active_id
+      seam_id : dvisor.blost.data.seam.active_ids[0],
+      seam_stitch_id : dvisor.blost.data.seam_stitch.active_ids[0]
     };
 
     // -- Build request data.
@@ -227,7 +271,9 @@
       success: function(data) {
         // dvisor.blost.seam.addBranch(data);
         $.extend(true, dvisor.blost.data, data);
-        dvisor.blost.seam.updateSeamStitchDisplay();
+        dvisor.blost.seam.display.show.update();
+        dvisor.blost.seam.display.show.$branchAllTab.tab('show');
+        dvisor.blost.seam.display.show.$startBranchText.val('');
       }
     });
   };
@@ -250,7 +296,7 @@
       data: data,
       success: function(data) {
         $.extend(true, dvisor.blost.data, data);
-        dvisor.blost.seam.updateSeamStitchDisplay();
+        dvisor.blost.seam.display.show.update();
       }
     });
   }
@@ -264,7 +310,7 @@ var ready = function() {
 
   $.extend(true, dvisor.blost.data, $("#data").data());
   dvisor.blost.data.seam_stitch = dvisor.blost.data.seamStitch;
-  dvisor.blost.seam.updateSeamStitchDisplay();
+  dvisor.blost.seam.display.show.update();
 
   var initSeams = function() {
     // dvisor.blost.seam.ajax.getSeamStitch()
@@ -277,7 +323,6 @@ var ready = function() {
           passage: $("#new-page-text").val()
         });
     });
-
     // $("#seam-stitch-page-list").on('mousewheel', function(event) {
     //   // cross-browser wheel delta
     //   var e = window.event || e; // old IE support
@@ -285,9 +330,17 @@ var ready = function() {
     //   this.scrollLeft -= (delta * 50);
     //   event.preventDefault();
     // });
-
-
   };
+
+  var initBranches = function() {
+    $("#start-new-branch").click(function(event) {
+      dvisor.blost.seam.ajax.addBranch(
+        {
+          passage: $("#new-branch-text").val()
+        });
+    });
+  };
+
 
   var changeLayout = function(layoutName) {
     switch (layoutName) {
@@ -306,6 +359,7 @@ var ready = function() {
     // changeLayout("pages");
     initSeams();
     initPages();
+    initBranches();
     $("#promote-page-to-stitch-button").prop("disabled", true);
   };
 
