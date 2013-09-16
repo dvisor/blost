@@ -55,8 +55,8 @@ class Seam < ActiveRecord::Base
 
     return_data = {}
 
-    return_data[:seam] = StandardData.enhance(Seam.standardize(self.id), {active_ids: [self.id]})
-    return_data[:seam_stitch] = StandardData.enhance(
+    return_data[:seam] = StandardData.enhance!(Seam.standardize(self.id), {active_ids: [self.id]})
+    return_data[:seam_stitch] = StandardData.enhance!(
       origin_seam_stitch.retrieve(seam_stitch_retrieve_options),
       seam_stitch_standardize_options)
 

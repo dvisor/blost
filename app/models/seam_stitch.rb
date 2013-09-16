@@ -19,9 +19,12 @@ class SeamStitch < ActiveRecord::Base
       return nil
     end
 
-    {data: {seam_stitch_id => seam_stitch.jsonize}, order: [seam_stitch_id]}
+    seam_stitch.standardize
   end
 
+  def standardize
+    {data: {self.id => self.jsonize}, order: [self.id]}
+  end
 
   def jsonize
     data = {id: self.id}

@@ -88,6 +88,45 @@
   //   }
   // };
 
+  seam.display = function() {
+    var that = {};
+
+    that.show = function() {
+      var that = {};
+
+      that.$pageAllTab = $('#seam-stitch-page-tabs a[href="#seam-stitch-page-list-container"]');
+      that.$pageNewTab = $('#seam-stitch-page-tabs a[href="#seam-stitch-new-page-container"]');
+      that.$newPageText = $('#new-page-text');
+
+      that.update = function() {
+        var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
+        var branchList = $("#seam-stitch-branch-list");
+
+        $("#seam-stitch-text").html(seamStitch.passage);
+        branchList.empty();
+        $("#seam-stitch-branch-tab").html("Branches (" + seamStitch.branches.total + ")");
+        $.each(seamStitch.branches.data, function(index, seamStitch) {
+            var branchItem = $("<li>").append($("<div>").addClass("branch-list-item").html(seamStitch.passage));
+            branchList.append(branchItem);
+          });
+
+        var pageList = $("#seam-stitch-page-list");
+        pageList.empty();
+        $("#seam-stitch-page-tab").text("Pages (" + seamStitch.offered_pages.total + ")");
+        $.each(seamStitch.offered_pages.data, function(index, offeredPage) {
+          // -- Build page item with click function.
+          var listItem = $("<li>").append(dvisor.blost.page.pageItem({listView:pageList, seamStitchId : seamStitch.id, offeredPageId : offeredPage.id, passage : offeredPage.passage}).base);//.click(function(event){alert("item");});
+          pageList.append(listItem);
+        });
+      };
+
+      return that;
+    }();
+
+    return that;
+  }();
+
+
   seam.updateSeamStitchDisplay = function() {
     var seamStitch = dvisor.blost.data.seam_stitch.data[dvisor.blost.data.seam_stitch.active_ids[0]];
     var branchList = $("#seam-stitch-branch-list");
@@ -165,6 +204,8 @@
       success: function(data) {
         $.extend(true, dvisor.blost.data, data);
         dvisor.blost.seam.updateSeamStitchDisplay();
+        dvisor.blost.seam.display.show.$pageAllTab.tab('show');
+        dvisor.blost.seam.display.show.$newPageText.val('');
       }
     });
   };

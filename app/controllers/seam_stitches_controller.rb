@@ -16,7 +16,7 @@ class SeamStitchesController < ApplicationController
       format.html # show.html.erb
       format.json {
         standard_data = @seam_stitch.retrieve({next: params[:next], jsonize: true})
-        StandardData.enhance(standard_data, {active_ids: [standard_data[:order].first]})
+        StandardData.enhance!(standard_data, {active_ids: [standard_data[:order].first]})
 
         # if data[:order].blank?
         #   active_id = nil
@@ -95,7 +95,8 @@ class SeamStitchesController < ApplicationController
       offered_page = OfferedPage.create(seam_stitch_id: @seam_stitch.id, page_commit_id: page.page_commit_id)
 
       # -- Build response data
-      response_data = [@seam_stitch.jsonize]
+      standard_data = @seam_stitch.standardize
+      response_data = {seam_stitch: StandardData.enhance!(standard_data, {active_ids: [standard_data[:order].first]})}
     else
       response_data = nil
     end
